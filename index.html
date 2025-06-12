@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Clock App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="header">
+            <h1 class="app-title">Clock App</h1>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('time')">Time</button>
+            <button class="tab" onclick="switchTab('alarm')">Alarm</button>
+            <button class="tab" onclick="switchTab('stopwatch')">Stopwatch</button>
+            <button class="tab" onclick="switchTab('timer')">Timer</button>
+            <button class="tab" onclick="switchTab('worldclock')">World Clock</button>
+        </div>
+
+        <div class="content">
+            <div id="time" class="tab-content active">
+                <div class="analog-clock" id="analogClock">
+                    <div class="clock-ticks" id="clockTicks"></div>
+                    <div class="clock-numbers">
+                        <div class="clock-number">12</div>
+                        <div class="clock-number">1</div>
+                        <div class="clock-number">3</div>
+                        <div class="clock-number">4</div>
+                        <div class="clock-number">6</div>
+                        <div class="clock-number">7</div>
+                        <div class="clock-number">9</div>
+                        <div class="clock-number">10</div>
+                    </div>
+                    <div class="clock-hand hour-hand" id="hourHand"></div>
+                    <div class="clock-hand minute-hand" id="minuteHand"></div>
+                    <div class="clock-hand second-hand" id="secondHand"></div>
+                </div>
+                <div class="digital-clock" id="digitalClock">00:00:00</div>
+                <div class="date-display" id="dateDisplay"></div>
+            </div>
+
+            <div id="alarm" class="tab-content">
+                <h2>Set Alarm</h2>
+                <div class="input-group">
+                    <div class="input-row">
+                        <input type="number" class="time-input" id="alarmHour" min="0" max="23" placeholder="HH"
+                            value="07">
+                        <span>:</span>
+                        <input type="number" class="time-input" id="alarmMinute" min="0" max="59" placeholder="MM"
+                            value="00">
+                    </div>
+                    <select class="ringtone-select" id="ringtoneSelect">
+                        <option value="beep">Beep</option>
+                        <option value="chime">Chime</option>
+                        <option value="bell">Bell</option>
+                        <option value="digital">Digital</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="setAlarm()">Set Alarm</button>
+                </div>
+                <div class="alarm-list" id="alarmList"></div>
+            </div>
+
+
+            <div id="stopwatch" class="tab-content">
+                <h2>Stopwatch</h2>
+                <div class="stopwatch-display" id="stopwatchDisplay">00:00:00</div>
+                <div>
+                    <button class="btn btn-success" id="stopwatchStart" onclick="startStopwatch()">Start</button>
+                    <button class="btn btn-warning" id="stopwatchPause" onclick="pauseStopwatch()"
+                        disabled>Pause</button>
+                    <button class="btn btn-danger" onclick="resetStopwatch()">Reset</button>
+                </div>
+            </div>
+
+
+            <div id="timer" class="tab-content">
+                <h2>Timer</h2>
+                <div class="input-group">
+                    <div class="input-row">
+                        <input type="number" class="time-input" id="timerHour" min="0" max="23" placeholder="HH"
+                            value="0">
+                        <span>:</span>
+                        <input type="number" class="time-input" id="timerMinute" min="0" max="59" placeholder="MM"
+                            value="5">
+                        <span>:</span>
+                        <input type="number" class="time-input" id="timerSecond" min="0" max="59" placeholder="SS"
+                            value="0">
+                    </div>
+                    <button class="btn btn-primary" onclick="startTimer()">Start Timer</button>
+                </div>
+                <div class="timer-display" id="timerDisplay">00:05:00</div>
+                <div>
+                    <button class="btn btn-warning" id="timerPause" onclick="pauseTimer()" disabled>Pause</button>
+                    <button class="btn btn-danger" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            
+            <div id="worldclock" class="tab-content">
+                <h2>World Clock</h2>
+                <div class="world-clock-grid" id="worldClockGrid">
+                    <div class="world-clock-item">
+                        <div class="world-clock-city">New York</div>
+                        <div class="world-clock-time" id="nyTime">--:--:--</div>
+                        <div class="world-clock-date" id="nyDate">--</div>
+                    </div>
+                    <div class="world-clock-item">
+                        <div class="world-clock-city">London</div>
+                        <div class="world-clock-time" id="londonTime">--:--:--</div>
+                        <div class="world-clock-date" id="londonDate">--</div>
+                    </div>
+                    <div class="world-clock-item">
+                        <div class="world-clock-city">Tokyo</div>
+                        <div class="world-clock-time" id="tokyoTime">--:--:--</div>
+                        <div class="world-clock-date" id="tokyoDate">--</div>
+                    </div>
+                    <div class="world-clock-item">
+                        <div class="world-clock-city">Sydney</div>
+                        <div class="world-clock-time" id="sydneyTime">--:--:--</div>
+                        <div class="world-clock-date" id="sydneyDate">--</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="alarm-modal" id="alarmModal">
+        <div class="alarm-modal-content">
+            <h2>🔔 Alarm!</h2>
+            <p id="alarmMessage">Wake up! It's time!</p>
+            <button class="btn btn-primary" onclick="dismissAlarm()">Dismiss</button>
+        </div>
+    </div>
+
+    <script src="script.js">
+    </script>
+</body>
+
+</html>
